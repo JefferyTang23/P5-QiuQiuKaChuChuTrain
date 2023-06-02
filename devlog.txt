@@ -17,3 +17,12 @@ jefferyT -- 2023-05-30 13:00
 --------------------------------------------------------------
 - Created repo with file structure
 - Started README.md and devlog
+
+mayQ -- 2023-05-30 13:00
+--------------------------------------------------------------
+- Complete team flag
+
+jefferyT -- 2023-06-02 00:20
+--------------------------------------------------------------
+- Uploaded first design doc
+- linked submodule
