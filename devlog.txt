@@ -26,3 +26,10 @@ jefferyT -- 2023-06-02 00:20
 --------------------------------------------------------------
 - Uploaded first design doc
 - linked submodule
+
+ravindraM -- 2023-06-02 22:45
+--------------------------------------------------------------
+- Created login.html
+- Created register.html
+- Wrote minimum flask app code in __init__.py
+- Created styles.css
