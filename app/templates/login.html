@@ -11,7 +11,7 @@
             </div>
             <div style="margin-top: 0.5rem; margin-left: 1.5rem;">
                 <p style="font-family:Arial, Helvetica, sans-serif; font-size: 2.0rem; padding: 0px; margin: 0px;"><b>Login</b></p>
-                <form action="/login" style="margin-top: 0.5rem;">
+                <form action="/login" method="POST" style="margin-top: 0.5rem;">
                     <input class="login" type="text" name="username" placeholder="Username"><br>
                     <input class="login" type="text" name="password" placeholder="Password"><br>
                     <div style="display: flex; justify-content: center; margin-left: -1.5rem; margin-top: 2rem;">
@@ -20,7 +20,9 @@
                 </form>
             </div>
             <div style="display: flex; justify-content: center; margin-top: 3rem;">
-                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem;">Not registered? Click <a href="/register">here!</a></p>
+                <form action="/direct_register">
+                    <p style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem;">Not registered? Click <a href="/direct_register">here!</a></p>
+                </form>
             </div>
         </div>
     </body>

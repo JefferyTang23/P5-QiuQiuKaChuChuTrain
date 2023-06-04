@@ -27,9 +27,19 @@ jefferyT -- 2023-06-02 00:20
 - Uploaded first design doc
 - linked submodule
 
-ravindraM -- 2023-06-02 22:45
+ravindraM -- 2023-06-03 22:45
 --------------------------------------------------------------
 - Created login.html
 - Created register.html
 - Wrote minimum flask app code in __init__.py
 - Created styles.css
+
+jefferyT & mayQ -- 2023-06-04 0:17
+--------------------------------------------------------------
+- Created home.html
+- Made login and register work
+- Created db.py
+- Created methods to change the stats
+- Created users and stats tables
+- Gave player starting stats
+
