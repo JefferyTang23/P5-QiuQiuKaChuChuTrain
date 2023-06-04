@@ -43,3 +43,7 @@ jefferyT & mayQ -- 2023-06-04 0:17
 - Created users and stats tables
 - Gave player starting stats
 
+ravindraM -- 2023-06-04 09:57
+--------------------------------------------------------------
+- Added error messages support to __init__.py, login.html, register.html and styles.css
+- Background error effects added to login and register pages

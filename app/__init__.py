@@ -11,7 +11,7 @@ def index():
     if 'username' in session:
         print("user is in session")
         return render_template('home.html')
-    return render_template('login.html')
+    return render_template('login.html', error_msg="Input Username and Password")
 
 @app.route('/login', methods = ["GET", "POST"])
 def login():
@@ -27,7 +27,7 @@ def login():
     # if password is wrong or username is wrong
     else:
         print("sigh")
-        return render_template('login.html') # displays login page 
+        return render_template('login.html', error_msg="Incorrect Credentials") # displays login page 
     
 
 @app.route('/register', methods = ["GET", "POST"])
@@ -37,25 +37,25 @@ def register():
 
     # if any field is empty
     if ((username == "") or (password == "")):
-        return render_template( 'register.html', error_msg="Fill in any blank fields." ) # displays create_account page w/error_msg
+        return render_template( 'register.html', error_msg="Fill in any blank fields") # displays create_account page w/error_msg
     
     # if username is not unique / the same as another user's username (check in database)
     if (check_login(username, password)):
-        return render_template( 'register.html', error_msg="Username unavailable. Please pick a different username." ) # displays create_account page w/error_msg
+        return render_template( 'register.html', error_msg="Username already taken") # displays create_account page w/error_msg
     
     # username is unique
     if (request.method == 'POST'):
         add_login(username, password)
         return redirect("/login")
-    return render_template('login.html', error_msg="") # displays login page
+    return render_template('login.html', error_msg="Input Username and Password") # displays login page
 
 @app.route('/direct_register')
 def direct_register():
-    return render_template("register.html")
+    return render_template("register.html", error_msg="Input Username and Password")
 
 @app.route('/direct_login')
 def direct_login():
-    return render_template("login.html")
+    return render_template("login.html", error_msg="Input Username and Password")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

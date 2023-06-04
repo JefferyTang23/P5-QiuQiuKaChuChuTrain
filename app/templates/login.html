@@ -4,26 +4,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../static/css/style.css">
     </head>
-    <body style="min-height: 100svh; width: 100vw; background-color: whitesmoke; display: flex; align-items: center; justify-content: center; margin: 0px; padding: 0px; overflow-x: hidden;">
-        <div style="height: 33rem; width: 25rem; background-color: white; box-shadow: 0px 0px 20px 0px black;">
+    <body id="body" style="min-height: 100svh; width: 100vw; background-color: whitesmoke; display: flex; align-items: center; justify-content: center; margin: 0px; padding: 0px; overflow-x: hidden;">
+        <div id="card" style="height: 33rem; width: 25rem; background-color: white; box-shadow: 0px 0px 20px 0px black;">
             <div style="display: flex; justify-content: center;">
                 <img src="../static/assets/stua.png" style="height: 10rem; width: 12rem; padding: 0px; margin-top: 1rem;">
             </div>
             <div style="margin-top: 0.5rem; margin-left: 1.5rem;">
                 <p style="font-family:Arial, Helvetica, sans-serif; font-size: 2.0rem; padding: 0px; margin: 0px;"><b>Login</b></p>
+                <p id="error" style="font-family:Arial, Helvetica, sans-serif; font-size: 1.0rem; padding: 0px; margin: 0px; margin-top: 0.2rem;">{{error_msg}}</p>
                 <form action="/login" method="POST" style="margin-top: 0.5rem;">
                     <input class="login" type="text" name="username" placeholder="Username"><br>
-                    <input class="login" type="text" name="password" placeholder="Password"><br>
+                    <input class="login" type="password" name="password" placeholder="Password"><br>
                     <div style="display: flex; justify-content: center; margin-left: -1.5rem; margin-top: 2rem;">
                         <input class="login_submit" type="submit" value="GO!">
                     </div>
                 </form>
             </div>
-            <div style="display: flex; justify-content: center; margin-top: 3rem;">
+            <div style="display: flex; justify-content: center; margin-top: 1.6rem;">
                 <form action="/direct_register">
                     <p style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem;">Not registered? Click <a href="/direct_register">here!</a></p>
                 </form>
             </div>
         </div>
+        <script>
+            if ('{{error_msg}}' != 'Input Username and Password') {
+                document.getElementById('error').style.color = 'red';
+                document.getElementById('body').classList.add('error_screen');
+                document.getElementById('card').classList.add('error_shake');
+            }
+        </script>
     </body>
 </html>

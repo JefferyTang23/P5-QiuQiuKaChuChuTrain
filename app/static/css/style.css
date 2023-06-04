@@ -78,3 +78,32 @@ html {
     font-size: 0.7rem;
     padding-left: 0.3rem;
 }
+
+.placeholder_error::placeholder {
+    color: red;
+}
+
+.error_screen {
+    animation-name: siren;
+    animation-duration: 1.5s;
+}
+
+.error_shake {
+    animation-name: quake;
+    animation-duration: 0.1s;
+}
+
+@keyframes siren {
+    0%   {background-color: whitesmoke;}
+    50%  {background-color: red;}
+    100%   {background-color: whitesmoke;}
+}
+
+@keyframes quake {
+    0%   {transform: translateX(3px);}
+    20%  {transform: translateX(-3px);}
+    40%   {transform: translateX(-3px);}
+    60%  {transform: translateX(3px);}
+    80%   {transform: translateX(-3px);}
+    100%   {transform: translateX(3px);}
+}
