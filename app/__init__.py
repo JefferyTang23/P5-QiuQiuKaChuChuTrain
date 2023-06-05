@@ -10,7 +10,7 @@ app.secret_key = os.urandom(32)
 def index():
     if 'username' in session:
         print("user is in session")
-        return render_template('home.html')
+        return render_template('game.html')
     return render_template('login.html', error_msg="Input Username and Password")
 
 @app.route('/login', methods = ["GET", "POST"])
@@ -23,7 +23,7 @@ def login():
     if (authenticate(username, password)):
         session['username'] = username # create a session/cookie w/username
         print("session started")
-        return render_template('home.html')
+        return render_template('game.html')
     # if password is wrong or username is wrong
     else:
         print("sigh")
