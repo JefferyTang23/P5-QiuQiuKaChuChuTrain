@@ -14,15 +14,15 @@ c.execute("CREATE TABLE IF NOT EXISTS school_events(name TEXT, message TEXT, cho
 # c.execute("INSERT into users VALUES('?', '?', '?')")
 # c.execute("INSERT into stats VALUES('?', '?', '?', '?', '?')")
 
-c.execute("INSERT into rand_events VALUES('fall_bridge', 'You slipped on rat poop on the stairs to the bridge!', 20, -5, 0, -5, -2 )")
-c.execute("INSERT into rand_events VALUES('escalator_died', 'The escalator you needed stopped working, AGAIN!', 20, -5, 0, 0, 2 )")
-c.execute("INSERT into rand_events VALUES('ice_cream', 'The McDonald's ice cream machine stopped working, AGAIN!', 20, -5, 0, 0, 1 )")
-c.execute("INSERT into rand_events VALUES('dropped_phone', 'You accidentally dropped your phone onto the subway tracks!', 20, -10, 0, 0, 1 )")
-c.execute("INSERT into rand_events VALUES('teacher_out', 'Your teacher is out for 2 months!', 20, 10, -4, 0, 0 )")
+c.execute("INSERT into rand_events VALUES(?, ?, ?, ?, ?, ?, ? )", ('fall_bridge', 'You slipped on rat poop on the stairs to the bridge!', 20, -5, 0, -5, -2 ))
+c.execute("INSERT into rand_events VALUES(?, ?, ?, ?, ?, ?, ? )", ('escalator_died', 'The escalator you needed stopped working, AGAIN!', 20, -5, 0, 0, 2 ))
+c.execute("INSERT into rand_events VALUES(?, ?, ?, ?, ?, ?, ? )", ('ice_cream', 'The McDonalds ice cream machine stopped working, AGAIN!', 20, -5, 0, 0, 1 ))
+c.execute("INSERT into rand_events VALUES(?, ?, ?, ?, ?, ?, ? )", ('dropped_phone', 'You accidentally dropped your phone onto the subway tracks!', 20, -10, 0, 0, 1 ))
+c.execute("INSERT into rand_events VALUES(?, ?, ?, ?, ?, ?, ? )", ('teacher_out', 'Your teacher is out for 2 months!', 20, 10, -4, 0, 0 ))
 
-c.execute("INSERT into randc_events VALUES('friend_leg', 'Your best friend breaks their leg falling down the stairs. You have a test, do you bring them to the hospital?', 'Help them', 'Leave them', 'You accompanied them and they appreciate you.', 'You took your test in guilt and couldn't focus.',  20, 1, 0, 3, 0, -5, 0, -5, 0  )") #in python, drop their grade by .05 if 2nd choice is chosen
-c.execute("INSERT into randc_events VALUES('book', 'You're reading your English book on the train but your body would rather sleep.', 'Force yourself to finish the reading', 'Close your eyes', 'You're tired, but you did well on the pop quiz in class!', 'That was a good nap; too bad you failed the pop quiz!',  20, -5, 3, 0, -5, 5, -5, 0, 5  )") #in python, drop their grade by .05 if 2nd choice is chosen
-c.execute("INSERT into randc_events VALUES('lab', 'You accidentally knocked over and broke some lab equipment.', 'Confess to teacher', 'Hide the fact', 'Your classmates respected your decision but your teacher told your parents and you were fined.', 'Some students looked and laughed at you but you somehow got away with it.',  20, -10, 0, 5, 0, 5, 0, -5, 0  )")
+c.execute("INSERT into randc_events VALUES(?, ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?  )", ('friend_leg', 'Your best friend breaks their leg falling down the stairs. You have a test, do you bring them to the hospital?', 'Help them', 'Leave them', 'You accompanied them and they appreciate you.', 'You took your test in guilt and could not focus.',  20, 1, 0, 3, 0, -5, 0, -5, 0  )) #in python, drop their grade by .05 if 2nd choice is chosen
+c.execute("INSERT into randc_events VALUES(?, ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?  )",('book', 'You are reading your English book on the train but your body would rather sleep.', 'Force yourself to finish the reading', 'Close your eyes', 'You are tired, but you did well on the pop quiz in class!', 'That was a good nap; too bad you failed the pop quiz!',  20, -5, 3, 0, -5, 5, -5, 0, 5  )) #in python, drop their grade by .05 if 2nd choice is chosen
+c.execute("INSERT into randc_events VALUES(?, ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?  )",('lab', 'You accidentally knocked over and broke some lab equipment.', 'Confess to teacher', 'Hide the fact', 'Your classmates respected your decision but your teacher told your parents and you were fined.', 'Some students looked and laughed at you but you somehow got away with it.',  20, -10, 0, 5, 0, 5, 0, -5, 0  ))
 c.execute("INSERT into randc_events VALUES('homeless', 'A homeless person came up to you and asked you for money', 'Give $1', 'Walk away', 'Your wallet is emptier but you felt you did the right thing.', 'You walked away in guilt.',  20, 5, 0, 0, 0, -5, 0, 0, 0  )") #lose $1 for first choice
 
 
