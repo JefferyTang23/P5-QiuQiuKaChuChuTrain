@@ -46,8 +46,12 @@ def register():
     # username is unique
     if (request.method == 'POST'):
         add_login(username, password)
-        return render_template('game.html')
+        return redirect('/home')
     return render_template('game.html')  #goes straight to game instead of needing to login 
+
+@app.route('/home')
+def homepage():
+    return render_template('game.html')
 
 @app.route('/direct_register')
 def direct_register():
