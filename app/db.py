@@ -181,3 +181,31 @@ def getRizz(user):
     db.close()
     
     return Rizz
+
+def getRandc():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM randc_events")
+    all_events = c.fetchall()
+    #print(all_events)
+
+    event = random.choice(all_events)
+    print(event)
+    db.commit()
+    db.close()
+    return event
+
+def getRand():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM rand_events")
+    all_events = c.fetchall()
+    #print(all_events)
+
+    event = random.choice(all_events)
+    print(event)
+    db.commit()
+    db.close()
+    return event
+
+getRandc()
