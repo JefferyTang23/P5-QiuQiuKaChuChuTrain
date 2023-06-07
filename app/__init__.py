@@ -60,11 +60,7 @@ def direct_register():
 @app.route('/direct_login')
 def direct_login():
     return render_template("login.html", error_msg="Input Username and Password")
-"""CREATE TABLE IF NOT EXISTS rand_events(name TEXT, message TEXT, 
-chance REAL, stat0c INTEGER, stat1c INTEGER, stat2c INTEGER, stat3c INTEGER )""")
-("""CREATE TABLE IF NOT EXISTS randc_events(name TEXT, message TEXT, choice0 TEXT, 
-    choice1 TEXT, aftermath0 TEXT, aftermath1 TEXT, chance REAL, c0stat0c INTEGER, c0stat1c INTEGER, 
-    c0stat2c INTEGER, c0stat3c INTEGER, c1stat0c INTEGER, c1stat1c INTEGER, c1stat2c INTEGER, c1stat3c INTEGER )""")
+
 def event():
     random = randint(0,100)
     if random < 50:
@@ -75,10 +71,28 @@ def event():
         c2 = event[3]
         a0 = event[4]
         a1 = event[5]
-        
+        s00 = event[6]
+        s01 = event[7]
+        s02 = event[8]
+        s03 = event[9]
+        s10 = event[10]
+        s11 = event[11]
+        s12 = event[12]
+        s13 = event[13]
+    return render_template("game.html", nameofevent = name, description = desc, choice1 = c1, choice2 = c2)
     else:
         event = getRand()
-    
+        name = event[0]
+        desc = event[1]
+        c1 = event[2]
+        c2 = event[3]
+        a0 = event[4]
+        a1 = event[5]
+        s0 = event[6]
+        s1 = event[7]
+        s2 = event[8]
+        s3 = event[9]
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
