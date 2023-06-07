@@ -4,9 +4,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../static/css/game.css">
     </head>
-    <body style="background-color: aqua; padding: 0px; margin: 0px; width: 100vw; min-height: 100svh; display: flex; overflow-x: hidden; justify-content: center; flex-direction: column;">
+    <body style="background-color: aqua; padding: 0px; margin: 0px; width: 100vw; min-height: 100svh; display: flex; overflow-x: hidden;">
         
-        <div style="height: 7rem; width: 100%; background-color: white; display: flex; align-items: center; justify-content: space-evenly; margin: auto; position: relative;">
+        <div style="height: 7rem; width: 100%; background-color: white; display: flex; align-items: center; justify-content: space-evenly; position: relative; align-self: flex-end;">
             <div onclick="emenu()" class="menu_box" style="background-color: blue;">
                 <img class="menu_logo" src="../static/assets/e.svg">
             </div>
@@ -19,14 +19,13 @@
                 <img class="menu_logo" src="../static/assets/a.svg">
             </div>
         </div>
-        <div id="emenu" style="height: 85%; width: 45%; background-color: white; align-self: center; position: absolute; border-radius: 2rem; z-index: 2; box-shadow: 0px 0px 20px 0px black; display: none;">
-            
-        </div>
         <div id="amenu" style="height: 85%; width: 45%; background-color: white; align-self: center; position: absolute; border-radius: 2rem; z-index: 2; box-shadow: 0px 0px 20px 0px black; display: none;">
         
         </div>
         <div onclick="unblind()" id="blind" style="position: absolute; height: 100%; width: 100%; background-color: black; opacity: 0.6; z-index: 1; display: none;">
-
+            <div id="emenu" style="height: 85%; width: 45%; background-color: white; align-self: center; position: absolute; border-radius: 2rem; z-index: 2; box-shadow: 0px 0px 20px 0px black; display: none;">
+            
+            </div>
         </div>
         <script src="../static/js/script.js"></script>
     </body>

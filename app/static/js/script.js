@@ -35,13 +35,9 @@ function amenu() {
 function unblind() {
     let blind = document.getElementById("blind");
     let emenu = document.getElementById("emenu");
-    let cmenu = document.getElementById("cmenu");
-    let rmenu = document.getElementById("rmenu");
     let amenu = document.getElementById("amenu");
 
     blind.style.display = "none";
     emenu.style.display = "none";
-    cmenu.style.display = "none";
-    rmenu.style.display = "none";
     amenu.style.display = "none";
 }
