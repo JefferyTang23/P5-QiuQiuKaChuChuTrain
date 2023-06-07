@@ -62,4 +62,5 @@ def direct_login():
     return render_template("login.html", error_msg="Input Username and Password")
 
 if __name__ == '__main__':
+    init()
     app.run(debug=True, host='0.0.0.0')
