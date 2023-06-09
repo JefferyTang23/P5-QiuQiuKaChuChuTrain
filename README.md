@@ -1,4 +1,4 @@
-#  __ by Qiu Qiu KaChu Chu Train
+#  StuyLife by Qiu Qiu KaChu Chu Train
 ## PM: Jeffery Tang
 ## Devo: Ravindra Mangar
 ## Devo: Thomas Zhang
