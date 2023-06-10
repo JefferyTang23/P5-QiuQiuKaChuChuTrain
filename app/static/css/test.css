@@ -1,0 +1,23 @@
+html {
+    font-size: 120%;
+}
+
+/**@media only screen and (max-width: 900px) {
+    html {
+        font-size: 80%;
+    }
+}**/
+
+.menu_box {
+    height: inherit;
+    width: 33.33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu_logo {
+    height: 6rem; 
+    width: 6rem; 
+    padding: 0px;
+}
