@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, session
 from db import *
 import os 
+import random
 
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
 
+eventDays = []
 @app.route("/")
 def index():
     if 'username' in session:
@@ -61,38 +63,234 @@ def direct_register():
 def direct_login():
     return render_template("login.html", error_msg="Input Username and Password")
 
-def event():
-    random = randint(0,100)
+def revent():
+    random = random.randint(0,100)
     if random < 50:
-        event = getRandc()
-        name = event[0]
-        desc = event[1]
-        c1 = event[2]
-        c2 = event[3]
-        a0 = event[4]
-        a1 = event[5]
-        s00 = event[6]
-        s01 = event[7]
-        s02 = event[8]
-        s03 = event[9]
-        s10 = event[10]
-        s11 = event[11]
-        s12 = event[12]
-        s13 = event[13]
-    return render_template("game.html", nameofevent = name, description = desc, choice1 = c1, choice2 = c2)
+        return getRandc()
     else:
         event = getRand()
-        name = event[0]
-        desc = event[1]
-        c1 = event[2]
-        c2 = event[3]
-        a0 = event[4]
-        a1 = event[5]
-        s0 = event[6]
-        s1 = event[7]
-        s2 = event[8]
-        s3 = event[9]
+        happinessChange(session["username"], event[2])
+        intelligenceChange(session["username"], event[3])
+        rizzChange(session["username"], event[4])
+        healthChange(session["username"], event[5])
+        return event
 
+@app.route('/next')
+def next():
+    day = getDay(session["username"])
+    if(day in eventDays):
+        event = sevent(day)
+    else:
+        event = revent()
+    addDay(session["username"])
+    return render_template('game.html', name = event[0], desc = event[1], day = day)
 
+@app.route("/academicC")
+def academicC():
+    intelligenceChange(session["username"], 5)
+    rizzChange(session["username"], -5)
+
+@app.route("/musicC")
+def musicC():
+    rizzChange(session["username"], 3)
+    happinessChange(session["username"], 4)
+    intelligenceChange(session["username"], -3)
+
+@app.route("/danceC")
+def danceC():
+    rizzChange(session["username"], 5)
+    happinessChange(session["username"], 2)
+    intelligenceChange(session["username"], -3)
+
+@app.route("/sportsT")
+def sportsT():
+    rizzChange(session["username"], 3)
+    happinessChange(session["username"], 1)
+    healthChange(session["username"], 5)
+    intelligenceChange(session["username"], -3)
+    
+@app.route("/sleep")
+def sleep():
+    rizzChange(session["username"], -2)
+    happinessChange(session["username"], 5)
+    healthChange(session["username"], 3)
+    intelligenceChange(session["username"], -3)
+
+@app.route("/hangout")
+def hangout():
+    rizzChange(session["username"], 5)
+    happinessChange(session["username"], 5)
+    intelligenceChange(session["username"], -3)
+
+@app.route("/murder")
+def murder():
+    rizzChange(session["username"], 5)
+    happinessChange(session["username"], 10)
+    chance = 0
+    if getIntelligence(session["username"] > 90):
+        chance = random.randint(50,100)
+    else: 
+        chance = random.randint(0,100)
+    if chance < 75:
+        redirect('/jail')
+
+@app.route("/drugs")
+def drugs():
+    happinessChange(session["username"], 8)
+    healthChange(session["username"], -5)
+    chance = 0
+    if getIntelligence(session["username"] > 90):
+        chance = random.randint(5,100)
+    else: 
+        chance = random.randint(0,100)
+    if chance < 6:
+        redirect('/jail')
+        
+@app.route("/study")
+def study():
+    happinessChange(session["username"], -5)
+    healthChange(session["username"], -5)
+    intelligenceChange(session["username"], 8)
+
+@app.route("/jail")
+def jail():
+    render_template("end_game_jail.html")
+
+def gpa():
+    if(getIntelligence(session["username"]) >= 95):
+        change = [-0.1, 0.0, 0.1, 0.2, 0.3, 0.4]
+    if(getIntelligence(session["username"]) < 95 and getIntelligence(session["username"]) >= 90):
+        change = [-0.2, -0.1, 0.0, 0.1, 0.2, 0.3]
+    if(getIntelligence(session["username"]) < 90 and getIntelligence(session["username"]) >= 80):
+        change = [-0.3, -0.2, -0.1, 0.0, 0.1, 0.2]
+    if(getIntelligence(session["username"]) < 80 and getIntelligence(session["username"]) >= 65):
+        change = [-.35, -.2, -.1, 0, .15,]
+    else:
+        change = [-.4, -.3, -.2, -.1, 0, .1]
+
+    gpachange = random.choice(change)
+    gpaChange(session["username"], gpachange)
+
+@app.route("/endGame")
+def endGame():
+    if(getHappiness(session["username"]) > 60):
+        happiness_description = "Your high school years were relatively happy, despite the reputation Stuyvesant students have."
+    else:
+        happiness_description = "You had a miserable time at Stuyvesant and wished to get out every single. Little do you know, your time in college will only be more sad"
+    if(getRizz(session["username"]) > 75):
+        rizz_description = "You were very popular. There were five mentions of you on the crush wall. You have no difficulty getting a SO in college. Congrats!"
+    elif(getRizz(session["username"] > 50)):
+        rizz_description = "You were sort of popular and was mentioned twice on the crushwall! "
+    else:
+        rizz_description = "You are a complete loner that simped for people you had no chance for. Get better."
+    if(getIntelligence(session["username"]) > 60):
+        intelligence_description = "Even in Stuyvesant, you were considered above average smart. You will only continue to thrive in college!"
+    else:
+        intelligence_description = "Maybe Stuyvesant wasn't the school for you. You felt insecure in a place where everyone seemed smarter than you. You tell yourself that Stuyvesant was still a worthwhile experience!"
+    render_template("end_game.html", intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]), happinessd = happiness_description, rizzd = rizz_description, intelligenced = intelligence_description )
+
+def days():
+    day = getDay(session["username"])
+    if(day == 0):
+        dayPrint = "Thursday, September 5th, 2019"
+    elif(day == 1):
+        dayPrint = "Wednesday, September 20th, 2019"
+    elif(day == 2):
+        dayPrint = "Monday, October 7th, 2019"
+    elif(day == 3):
+        dayPrint = "Thursday, October 24th, 2019"
+    elif(day == 4):
+        dayPrint = "Friday, November 8th, 2019"
+    elif(day == 5):
+        dayPrint = "Tuesday, November 19th, 2019"
+    elif(day == 6):
+        dayPrint = "Monday, December 9th, 2019"
+    elif(day == 7):
+        dayPrint = "Thursday, January 2nd, 2020"
+    elif(day == 8):
+        dayPrint = "Friday, January 24th, 2020"
+    elif(day == 9):
+        dayPrint = "Tuesday, February 11th, 2020"
+    elif(day == 10):
+        dayPrint = "Wednesday, February 25th, 2020"
+    elif(day == 11):
+        dayPrint = "Tuesday, March 13th, 2020"
+    if(day == 12):
+        dayPrint = "Monday, September 13st, 2021"
+    elif(day == 13):
+        dayPrint = "Thursday, September 23th, 2021"
+    elif(day == 14):
+        dayPrint = "Thursday, October 7th, 2021"
+    elif(day == 15):
+        dayPrint = "Monday, October 25th, 2021"
+    elif(day == 16):
+        dayPrint = "Tuesday, November 9th, 2021"
+    elif(day == 17):
+        dayPrint = "Wednesday, November 24th, 2021"
+    elif(day == 18):
+        dayPrint = "Thursday, December 9th, 2021"
+    elif(day == 19):
+        dayPrint = "Monday, January 3rd, 2022"
+    elif(day == 20):
+        dayPrint = "Monday, January 24th, 2022"
+    elif(day == 21):
+        dayPrint = "Friday, February 11th, 2022"
+    elif(day == 22):
+        dayPrint = "Thursday, February 24th, 2022"
+    elif(day == 23):
+        dayPrint = "Friday, March 11th, 2022"
+    elif(day == 24):
+        dayPrint = "Tuesday, March 22nd, 2022"
+    elif(day == 25):
+        dayPrint = "Friday, April 1st, 2022"
+    elif(day == 26):
+        dayPrint = "Wednesday, April 20th, 2022"
+    elif(day == 27):
+        dayPrint = "Friday, May 6th, 2022"
+    elif(day == 28):
+        dayPrint = "Thursday, May 20st, 2022"
+    elif(day == 29):
+        dayPrint = "Wednesday, June 1st, 2022"
+    elif(day == 30):
+        dayPrint = "Monday, June 27th, 2022"
+    if(day == 31):
+        dayPrint = "Thursday, September 8th, 2022"
+    elif(day == 32):
+        dayPrint = "Thursday, September 22nd, 2022"
+    elif(day == 33):
+        dayPrint = "Thursday, October 6th, 2022"
+    elif(day == 34):
+        dayPrint = "Monday, October 24th, 2022"
+    elif(day == 35):
+        dayPrint = "Tuesday, November 8th, 2022"
+    elif(day == 36):
+        dayPrint = "Wednesday, November 23rd, 2022"
+    elif(day == 37):
+        dayPrint = "Thursday, December 8th, 2022"
+    elif(day == 38):
+        dayPrint = "Tuesday, January 3rd, 2023"
+    elif(day == 39):
+        dayPrint = "Monday, January 23rd, 2023"
+    elif(day == 40):
+        dayPrint = "Friday, February 10th, 2023"
+    elif(day == 41):
+        dayPrint = "Thursday, February 23rd, 2023"
+    elif(day == 42):
+        dayPrint = "Friday, March 10th, 2023"
+    elif(day == 43):
+        dayPrint = "Tuesday, March 21st, 2023"
+    elif(day == 44):
+        dayPrint = "Monday, April 3rd, 2023"
+    elif(day == 45):
+        dayPrint = "Wednesday, April 19th, 2023"
+    elif(day == 46):
+        dayPrint = "Friday, May 5th, 2023"
+    elif(day == 47):
+        dayPrint = "Friday, May 19th, 2023"
+    elif(day == 48):
+        dayPrint = "Thursday, June 1st, 2023"
+    elif(day == 49):
+        dayPrint = "Monday, June 26th, 2023"
+    return dayPrint
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

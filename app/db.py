@@ -5,7 +5,7 @@ DB_FILE="P5.db"
 
 db = sqlite3.connect(DB_FILE, check_same_thread=False) 
 c = db.cursor() 
-c.execute("CREATE TABLE IF NOT EXISTS users(user TEXT UNIQUE, pwd TEXT, gpa REAL )")
+c.execute("CREATE TABLE IF NOT EXISTS users(user TEXT UNIQUE, pwd TEXT, gpa REAL, day INTEGER )")
 c.execute("""CREATE TABLE IF NOT EXISTS stats(user TEXT UNIQUE, 
     happiness INTEGER, intelligence INTEGER, rizz INTEGER, health INTEGER)""")
 c.execute("""CREATE TABLE IF NOT EXISTS rand_events(name TEXT, message TEXT, stat0c INTEGER, stat1c INTEGER, stat2c INTEGER, stat3c INTEGER )""")
@@ -18,7 +18,7 @@ c.execute("""CREATE TABLE IF NOT EXISTS randc_events(name TEXT, message TEXT, ch
 c.execute("""CREATE TABLE IF NOT EXISTS school_events(name TEXT, message TEXT, choice0 TEXT, choice1 TEXT, 
    aftermath00 TEXT, aftermath01 TEXT, aftermath1 TEXT, c00stat0c INTEGER, c00stat1c INTEGER, c00stat2c INTEGER, 
    c00stat3c INTEGER, c01stat0c INTEGER, c01stat1c INTEGER, c01stat2c INTEGER, c01stat3c INTEGER, 
-   c1stat0c INTEGER, c1stat1c INTEGER, c1stat2c INTEGER, c1stat3c INTEGER, date TEXT )""")
+   c1stat0c INTEGER, c1stat1c INTEGER, c1stat2c INTEGER, c1stat3c INTEGER, date INTEGER )""")
 # c.execute("INSERT into users VALUES('?', '?', '?')")
 # c.execute("INSERT into stats VALUES('?', '?', '?', '?', '?')")
 
@@ -102,8 +102,24 @@ def check_login(user, pwd):
 def add_login(user, pwd):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("INSERT into users VALUES(?,?,?)",(user, pwd, 100))
+    c.execute("INSERT into users VALUES(?,?,?)",(user, pwd, 95, 0))
     c.execute("INSERT into stats VALUES(?,?,?,?,?)",(user, random.randint(0, 100), random.randint(40, 100), random.randint(0, 100), random.randint(50, 100)))
+    db.commit()
+    db.close()
+
+def happinessChange(user, change):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT happiness FROM stats WHERE user=?", (user,))
+    happiness = c.fetchone()
+    
+    newval = happiness + change
+    if(newval > 100):
+        newval = 100
+    if(newval < 0):
+        newval = 0
+
+    c.execute("UPDATE stats SET happiness = ? WHERE user=?", (newval, user,))
     db.commit()
     db.close()
 
@@ -113,7 +129,13 @@ def intelligenceChange(user, change):
     c.execute("SELECT intelligence FROM stats WHERE user=?", (user,))
     intelligence = c.fetchone()
     
-    c.execute("UPDATE stats SET intelligence = ? WHERE user=?", (intelligence + change, user,))
+    newval = intelligence + change
+    if(newval > 100):
+        newval = 100
+    if(newval < 0):
+        newval = 0
+
+    c.execute("UPDATE stats SET intelligence = ? WHERE user=?", (newval, user,))
     db.commit()
     db.close()
 
@@ -123,7 +145,13 @@ def rizzChange(user, change):
     c.execute("SELECT rizz FROM stats WHERE user=?", (user,))
     rizz = c.fetchone()
     
-    c.execute("UPDATE stats SET rizz = ? WHERE user=?", (rizz + change, user,))
+    newval = rizz + change
+    if(newval > 100):
+        newval = 100
+    if(newval < 0):
+        newval = 0
+
+    c.execute("UPDATE stats SET rizz = ? WHERE user=?", (newval, user,))
     db.commit()
     db.close()
     
@@ -133,7 +161,29 @@ def healthChange(user, change):
     c.execute("SELECT health FROM stats where user=?",(user,))
     health = c.fetchone()
 
-    c.execute("UPDATE stats SET health = ? WHERE user=?", (health + change, user))
+    newval = health + change
+    if(newval > 100):
+        newval = 100
+    if(newval < 0):
+        newval = 0
+
+    c.execute("UPDATE stats SET health = ? WHERE user=?", (newval, user))
+    db.commit()
+    db.close()
+
+def gpaChange(user, change):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT gpa FROM users where user=?",(user,))
+    gpa = c.fetchone()
+
+    newval = gpa + change
+    if(newval > 100):
+        newval = 100
+    if(newval < 0):
+        newval = 0
+
+    c.execute("UPDATE users SET gpa = ? WHERE user=?", (newval, user))
     db.commit()
     db.close()
 
@@ -202,9 +252,34 @@ def getRand():
     #print(all_events)
 
     event = random.choice(all_events)
-    print(event)
+    # print(event)
     db.commit()
     db.close()
     return event
 
-getRandc()
+def sevent(day):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT * FROM school_events WHERE date=?", (day))
+    event = c.fetchone
+    db.commit()
+    db.close()
+    return event
+
+def getDay(user):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("SELECT day FROM users WHERE user=?", (user,))
+    day = c.fetchone()
+    db.commit()
+    db.close()
+
+    return day
+
+def addDay(user):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("UPDATE users SET day=? WHERE user=?", (getDay(user) + 1, user,))
+    db.commit()
+    db.close()
+    

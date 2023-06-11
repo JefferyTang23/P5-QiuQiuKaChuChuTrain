@@ -8,7 +8,4 @@ def trivia():
         questions.append(results["results"][i]["question"])
     return questions
 
-
-
-
 print (trivia())
