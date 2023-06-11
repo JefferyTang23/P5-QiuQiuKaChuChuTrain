@@ -47,3 +47,21 @@ ravindraM -- 2023-06-04 09:57
 --------------------------------------------------------------
 - Added error messages support to __init__.py, login.html, register.html and styles.css
 - Background error effects added to login and register pages
+
+thomasZ -- 2023-06-07 13:19
+--------------------------------------------------------------
+- worked on api_handler.py
+- fixed reistering routing and added home route
+
+jefferyT & mayQ -- 2023-06-10 19:03
+--------------------------------------------------------------
+- added activity and extracurricular methods
+- set day numbers and their dates
+- worked on event
+- worked on endGame
+
+jefferyT & mayQ -- 2023-06-11 15:42
+--------------------------------------------------------------
+- connected day with school event
+- simplify events 
+- set up variables for game.html jinja

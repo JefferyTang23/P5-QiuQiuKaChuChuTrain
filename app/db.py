@@ -12,15 +12,20 @@ c.execute("""CREATE TABLE IF NOT EXISTS rand_events(name TEXT, message TEXT, sta
 c.execute("""CREATE TABLE IF NOT EXISTS randc_events(name TEXT, message TEXT, choice0 TEXT, 
     choice1 TEXT, aftermath0 TEXT, aftermath1 TEXT, c0stat0c INTEGER, c0stat1c INTEGER, 
     c0stat2c INTEGER, c0stat3c INTEGER, c1stat0c INTEGER, c1stat1c INTEGER, c1stat2c INTEGER, c1stat3c INTEGER )""")
+c.execute("""CREATE TABLE IF NOT EXISTS school_events(name TEXT, message TEXT, 
+   aftermath0 TEXT, aftermath1 TEXT, c0stat0c INTEGER, c0stat1c INTEGER, c0stat2c INTEGER, 
+   c0stat3c INTEGER, c1stat0c INTEGER, c1stat1c INTEGER, c1stat2c INTEGER, c1stat3c INTEGER, date INTEGER )""")
+
 #c.execute("""CREATE TABLE IF NOT EXISTS stat_events(name TEXT, message TEXT, choice0 TEXT, choice1 TEXT, 
     #happiness INTEGER, intelligence INTEGER, rizz INTEGER, health INTEGER, stat0c INTEGER, stat1c INTEGER, 
     #stat2c INTEGER, stat3c INTEGER )""")
-c.execute("""CREATE TABLE IF NOT EXISTS school_events(name TEXT, message TEXT, choice0 TEXT, choice1 TEXT, 
-   aftermath00 TEXT, aftermath01 TEXT, aftermath1 TEXT, c00stat0c INTEGER, c00stat1c INTEGER, c00stat2c INTEGER, 
-   c00stat3c INTEGER, c01stat0c INTEGER, c01stat1c INTEGER, c01stat2c INTEGER, c01stat3c INTEGER, 
-   c1stat0c INTEGER, c1stat1c INTEGER, c1stat2c INTEGER, c1stat3c INTEGER, date INTEGER )""")
+# c.execute("""CREATE TABLE IF NOT EXISTS school_events(name TEXT, message TEXT, choice0 TEXT, choice1 TEXT, 
+#    aftermath00 TEXT, aftermath01 TEXT, aftermath1 TEXT, c00stat0c INTEGER, c00stat1c INTEGER, c00stat2c INTEGER, 
+#    c00stat3c INTEGER, c01stat0c INTEGER, c01stat1c INTEGER, c01stat2c INTEGER, c01stat3c INTEGER, 
+#    c1stat0c INTEGER, c1stat1c INTEGER, c1stat2c INTEGER, c1stat3c INTEGER, date INTEGER )""")
 # c.execute("INSERT into users VALUES('?', '?', '?')")
 # c.execute("INSERT into stats VALUES('?', '?', '?', '?', '?')")
+
 
 def init():
     db = sqlite3.connect(DB_FILE)
@@ -49,21 +54,54 @@ def init():
                ('book', 'You see one of your teacher pushing a book cart in the hallway. A student walks by and accidentally knocked over the books.', 'Help pick books up', 'Walk away', 'Your teacher appreciates you.', 'You walked away in guilt.',  20, 5, 0, 3, 0, -5, 0, -3, 0  ))
 
     c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('StuySquad_2019', 'It\'s time for Stuy\'s annual dance show! Join StuySquad 2019?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '19Oct0'))
+              ('StuySquad_2019', 'It\'s time for Stuy\'s annual dance show!', 
+               'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 
+               30, -1, 20, 10, 20, -1, 12, 10, 3))
     c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('StuySquad_2021', 'It\'s time for Stuy\'s annual dance show! Join StuySquad 2021?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '21Oct0'))
+              ('StuySquad_2021', 'It\'s time for Stuy\'s annual dance show!', 
+               'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 
+               30, -1, 20, 10, 20, -1, 12, 10, 15))
     c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('StuySquad_2022', 'It\'s time for Stuy\'s annual dance show! Join StuySquad 2022?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '2Oct0'))
+              ('StuySquad_2022', 'It\'s time for Stuy\'s annual dance show!', 
+               'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!',
+               30, -1, 20, 10, 20, -1, 12, 10, 34))
     c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('SING_2020', 'It\'s time for Stuy\'s annual SING! Join SING 2020?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '20Feb0'))
+              ('SING_2020', 'It\'s time for Stuy\'s annual SING!', 
+               'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!',
+               30, -1, 20, 10, 20, -1, 12, 10, 8))
     c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('SING_2022', 'It\'s time for Stuy\'s annual SING! Join SING 2022?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '22Feb0'))
+              ('SING_2022', 'It\'s time for Stuy\'s annual SING!',
+               'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 
+               30, -1, 20, 10, 20, -1, 12, 10, 20))
     c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('SING_2023', 'It\'s time for Stuy\'s annual SING! Join SING 2023', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '23Feb0'))
+              ('SING_2023', 'It\'s time for Stuy\'s annual SING!', 
+               'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 
+               30, -1, 20, 10, 20, -1, 12, 10, 39))
     c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('SOS_2022', 'It\'s time for Stuy\'s annual showcase! Join SOS 2022?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '22Apr1'))
-    c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-              ('SOS_2023', 'It\'s time for Stuy\'s annual showcase! Join SOS 2023?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, '23Apr1'))
+              ('SOS_2022', 'It\'s time for Stuy\'s annual SOS!', 
+               'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 
+               30, -1, 20, 10, 20, -1, 12, 10, 26))
+    c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+              ('SOS_2023', 'It\'s time for Stuy\'s annual SOS!', 
+               'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 
+               30, -1, 20, 10, 20, -1, 12, 10, 45))
+
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('StuySquad_2019', 'It\'s time for Stuy\'s annual dance show! Join StuySquad 2019?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 3))
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('StuySquad_2021', 'It\'s time for Stuy\'s annual dance show! Join StuySquad 2021?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 15))
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('StuySquad_2022', 'It\'s time for Stuy\'s annual dance show! Join StuySquad 2022?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 34))
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('SING_2020', 'It\'s time for Stuy\'s annual SING! Join SING 2020?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 8))
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('SING_2022', 'It\'s time for Stuy\'s annual SING! Join SING 2022?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 20))
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('SING_2023', 'It\'s time for Stuy\'s annual SING! Join SING 2023', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people! Your grade was victorious!', 'Your grade couldn\'t win but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 39))
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('SOS_2022', 'It\'s time for Stuy\'s annual showcase! Join SOS 2022?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 26))
+    # c.execute("INSERT into school_events VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    #           ('SOS_2023', 'It\'s time for Stuy\'s annual showcase! Join SOS 2023?', 'Join', 'Don\'t take part', 'You helped put on an amazing show and met amazing people!', 'The show didn\'t go as planned but you still met a lot of cool people!', 'You chose not to take part', 30, -1, 20, 10, 20, -1, 12, 10, 0, 0, 0, 0, 45))
 
     db.commit()
     db.close()
@@ -257,13 +295,14 @@ def getRand():
     db.close()
     return event
 
-def sevent(day):
+def getSevent(day):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("SELECT * FROM school_events WHERE date=?", (day))
     event = c.fetchone
     db.commit()
     db.close()
+    
     return event
 
 def getDay(user):

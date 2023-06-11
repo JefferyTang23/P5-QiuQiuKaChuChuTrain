@@ -7,7 +7,9 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
 
-eventDays = []
+eventDays = [3, 8, 15, 20, 26, 34, 39, 45]
+
+#event = []
 @app.route("/")
 def index():
     if 'username' in session:
@@ -64,26 +66,55 @@ def direct_login():
     return render_template("login.html", error_msg="Input Username and Password")
 
 def revent():
+    # random = random.randint(0,100)
+    # if random < 50:
+    #     return getRandc()
+    # else:
+
+    event = getRand()
+    happinessChange(session["username"], event[2])
+    intelligenceChange(session["username"], event[3])
+    rizzChange(session["username"], event[4])
+    healthChange(session["username"], event[5])
+
+    nameDesc = [event[0], event[1]]
+    return nameDesc
+
+def sevent(day):
+    event = getSevent(day)
+
     random = random.randint(0,100)
+
     if random < 50:
-        return getRandc()
+        desc = event[1] + event[2]
+        happinessChange(session["username"], event[4])
+        intelligenceChange(session["username"], event[5])
+        rizzChange(session["username"], event[6])
+        healthChange(session["username"], event[7])
     else:
-        event = getRand()
-        happinessChange(session["username"], event[2])
-        intelligenceChange(session["username"], event[3])
-        rizzChange(session["username"], event[4])
-        healthChange(session["username"], event[5])
-        return event
+        desc = event[1] + event[3]
+        happinessChange(session["username"], event[8])
+        intelligenceChange(session["username"], event[9])
+        rizzChange(session["username"], event[10])
+        healthChange(session["username"], event[11])
+    
+    nameDesc = [event[0], desc]
+    return nameDesc
 
 @app.route('/next')
 def next():
     day = getDay(session["username"])
-    if(day in eventDays):
+    if (day == 50):
+        return endGame()
+    elif(day in eventDays):
         event = sevent(day)
     else:
         event = revent()
     addDay(session["username"])
-    return render_template('game.html', name = event[0], desc = event[1], day = day)
+    return render_template('game.html', day = day, 
+                           eventName = event[0], eventDesc = event[1], 
+                           intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), 
+                           happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]))
 
 @app.route("/academicC")
 def academicC():
@@ -187,7 +218,8 @@ def endGame():
         intelligence_description = "Even in Stuyvesant, you were considered above average smart. You will only continue to thrive in college!"
     else:
         intelligence_description = "Maybe Stuyvesant wasn't the school for you. You felt insecure in a place where everyone seemed smarter than you. You tell yourself that Stuyvesant was still a worthwhile experience!"
-    render_template("end_game.html", intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]), happinessd = happiness_description, rizzd = rizz_description, intelligenced = intelligence_description )
+    render_template("end_game.html", intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]), 
+                    happinessd = happiness_description, rizzd = rizz_description, intelligenced = intelligence_description )
 
 def days():
     day = getDay(session["username"])
