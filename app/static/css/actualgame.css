@@ -6,27 +6,29 @@
 }
   
 #content-wrap {
-    padding-bottom: 7rem;
-    padding-right: 13rem;   
+    padding-bottom: 7rem;   
     background-color: red;
     flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
-}
-
-#chatlog {
-    position: relative;
-    flex: 1;
-    background-color: aqua;
+    align-items: center;
+    justify-content: center;
 }
 
 #sidebar {
-    position: absolute;
-    right: 0;
-    width: 13rem;
-    height: 100%;
-    background-color: blue;
+    background-color: aliceblue;
+    height: 7rem;
+    width: 25rem;
+    float: right;
+    box-shadow: 0px 0px 20px 0px black;
+    border-radius: 10px;
+}
+
+#chatlog {
+    background-color: aqua;
+    width: 97.5%;
+    flex: 0.95;
 }
 
 #footer {
