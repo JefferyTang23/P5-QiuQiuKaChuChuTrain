@@ -65,3 +65,13 @@ jefferyT & mayQ -- 2023-06-11 15:42
 - connected day with school event
 - simplify events 
 - set up variables for game.html jinja
+
+ravindraM -- 2023-06-12 22:00
+--------------------------------------------------------------
+- complete frontend
+
+jefferyT & mayQ & thomasZ -- 2023-06-12 23:42
+--------------------------------------------------------------
+- fix backend bugs
+- final adjustments
+- requirements and readme

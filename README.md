@@ -5,10 +5,8 @@
 ## Devo: May Qiu
 
 ## Summary
-
-## APIs
-
-## Datasets
+StuyLife is a game similar to BitLife. The player will play through 2 days per month from the 2019-2023 schoolyears. 
+There are random events as well as extracurriculars and activities that can change the player's stats.
 
 ## How to Clone, Install, and Run
 
