@@ -4,9 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
-render_template("end_game.html", intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]), happinessd = happiness_description, rizzd = rizz_description, intelligenced = intelligence_description )
-<p>You had quite in ride in Stuyvesant. It was your dream school.{{intelligenced}}
+<p>You had quite in ride in Stuyvesant. It was your dream school. {{intelligenced}}
     {{rizzd}}
-    {{happinessd}}
+    {{happinessd}} 
+    <br> <br>
+    Intelligence: {{intelligence}}
+    <br>
+    Happiness: {{happiness}}
+    <br>
+    Health: {{healthy}}
+    <br>
+    Rizz: {{rizz}}
 </p>
 </html>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 from db import *
 import os 
 import random
+import api_handler
 
 app = Flask(__name__)
 
@@ -14,7 +15,7 @@ eventDays = [3, 8, 15, 20, 26, 34, 39, 45]
 def index():
     if 'username' in session:
         print("user is in session")
-        return render_template('game.html')
+        return redirect('/next')
     return render_template('login.html', error_msg="Input Username and Password")
 
 @app.route('/login', methods = ["GET", "POST"])
@@ -27,7 +28,7 @@ def login():
     if (authenticate(username, password)):
         session['username'] = username # create a session/cookie w/username
         print("session started")
-        return render_template('game.html')
+        return redirect('/next')
     # if password is wrong or username is wrong
     else:
         print("sigh")
@@ -50,8 +51,9 @@ def register():
     # username is unique
     if (request.method == 'POST'):
         add_login(username, password)
-        return redirect('/home')
-    return render_template('game.html')  #goes straight to game instead of needing to login 
+        session['username'] = username
+        return redirect('/next')
+    return redirect('/next')  #goes straight to game instead of needing to login 
 
 @app.route('/home')
 def homepage():
@@ -80,58 +82,66 @@ def revent():
     nameDesc = [event[0], event[1]]
     return nameDesc
 
-def sevent(day):
-    event = getSevent(day)
+# def sevent(day):
+#     event = getSevent(day)
 
-    random = random.randint(0,100)
+#     randomc = random.randint(0,100)
 
-    if random < 50:
-        desc = event[1] + event[2]
-        happinessChange(session["username"], event[4])
-        intelligenceChange(session["username"], event[5])
-        rizzChange(session["username"], event[6])
-        healthChange(session["username"], event[7])
-    else:
-        desc = event[1] + event[3]
-        happinessChange(session["username"], event[8])
-        intelligenceChange(session["username"], event[9])
-        rizzChange(session["username"], event[10])
-        healthChange(session["username"], event[11])
+#     if randomc < 50:
+#         desc = str(event[1]) + " " + str(event[2])
+#         happinessChange(session["username"], event[4])
+#         intelligenceChange(session["username"], event[5])
+#         rizzChange(session["username"], event[6])
+#         healthChange(session["username"], event[7])
+#     else:
+#         desc = str(event[1]) + " " + str(event[3])
+#         happinessChange(session["username"], event[8])
+#         intelligenceChange(session["username"], event[9])
+#         rizzChange(session["username"], event[10])
+#         healthChange(session["username"], event[11])
     
-    nameDesc = [event[0], desc]
-    return nameDesc
+#     nameDesc = [event[0], desc]
+#     return nameDesc
 
 @app.route('/next')
 def next():
+    random_num = random.randint(0,100)
     day = getDay(session["username"])
-    if (day == 50):
-        return endGame()
-    elif(day in eventDays):
-        event = sevent(day)
-    else:
+    dayt = days()
+    if (day >= 50):
+        return redirect('/endGame')
+    # elif(day in eventDays):
+    #     event = sevent(day)
+    elif(random_num < 100):
         event = revent()
+    #else:  
     addDay(session["username"])
-    return render_template('game.html', day = day, 
+    gpa()
+    return render_template('game.html', day = dayt, 
                            eventName = event[0], eventDesc = event[1], 
                            intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), 
-                           happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]))
+                           happiness = getHappiness(session["username"]), health = getHealth(session["username"]),
+                           gpa = getGpa(session["username"]))
 
 @app.route("/academicC")
 def academicC():
     intelligenceChange(session["username"], 5)
     rizzChange(session["username"], -5)
+    return redirect('/next')
 
 @app.route("/musicC")
 def musicC():
     rizzChange(session["username"], 3)
     happinessChange(session["username"], 4)
     intelligenceChange(session["username"], -3)
+    return redirect('/next')
 
 @app.route("/danceC")
 def danceC():
     rizzChange(session["username"], 5)
     happinessChange(session["username"], 2)
     intelligenceChange(session["username"], -3)
+    return redirect('/next')
 
 @app.route("/sportsT")
 def sportsT():
@@ -139,6 +149,7 @@ def sportsT():
     happinessChange(session["username"], 1)
     healthChange(session["username"], 5)
     intelligenceChange(session["username"], -3)
+    return redirect('/next')
     
 @app.route("/sleep")
 def sleep():
@@ -146,24 +157,27 @@ def sleep():
     happinessChange(session["username"], 5)
     healthChange(session["username"], 3)
     intelligenceChange(session["username"], -3)
+    return redirect('/next')
 
 @app.route("/hangout")
 def hangout():
     rizzChange(session["username"], 5)
     happinessChange(session["username"], 5)
     intelligenceChange(session["username"], -3)
+    return redirect('/next')
 
 @app.route("/murder")
 def murder():
     rizzChange(session["username"], 5)
     happinessChange(session["username"], 10)
     chance = 0
-    if getIntelligence(session["username"] > 90):
+    if (getIntelligence(session["username"]) > 90):
         chance = random.randint(50,100)
     else: 
         chance = random.randint(0,100)
-    if chance < 75:
-        redirect('/jail')
+    if chance <= 75:
+        return redirect('/jail')
+    return redirect('/next')
 
 @app.route("/drugs")
 def drugs():
@@ -175,17 +189,19 @@ def drugs():
     else: 
         chance = random.randint(0,100)
     if chance < 6:
-        redirect('/jail')
+        return redirect('/jail')
+    return redirect('/next')
         
 @app.route("/study")
 def study():
     happinessChange(session["username"], -5)
     healthChange(session["username"], -5)
     intelligenceChange(session["username"], 8)
+    return redirect('/next')
 
 @app.route("/jail")
 def jail():
-    render_template("end_game_jail.html")
+    return render_template("end_game_jail.html")
 
 def gpa():
     if(getIntelligence(session["username"]) >= 95):
@@ -210,7 +226,7 @@ def endGame():
         happiness_description = "You had a miserable time at Stuyvesant and wished to get out every single. Little do you know, your time in college will only be more sad"
     if(getRizz(session["username"]) > 75):
         rizz_description = "You were very popular. There were five mentions of you on the crush wall. You have no difficulty getting a SO in college. Congrats!"
-    elif(getRizz(session["username"] > 50)):
+    elif(getRizz(session["username"]) > 50):
         rizz_description = "You were sort of popular and was mentioned twice on the crushwall! "
     else:
         rizz_description = "You are a complete loner that simped for people you had no chance for. Get better."
@@ -218,11 +234,13 @@ def endGame():
         intelligence_description = "Even in Stuyvesant, you were considered above average smart. You will only continue to thrive in college!"
     else:
         intelligence_description = "Maybe Stuyvesant wasn't the school for you. You felt insecure in a place where everyone seemed smarter than you. You tell yourself that Stuyvesant was still a worthwhile experience!"
-    render_template("end_game.html", intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]), 
+    return render_template("end_game.html", intelligence = getIntelligence(session["username"]), rizz = getRizz(session["username"]), happiness = getHappiness(session["username"]), healthy = getHealth(session["username"]), 
                     happinessd = happiness_description, rizzd = rizz_description, intelligenced = intelligence_description )
 
 def days():
     day = getDay(session["username"])
+    
+    dayPrint = "null"
     if(day == 0):
         dayPrint = "Thursday, September 5th, 2019"
     elif(day == 1):
@@ -323,6 +341,11 @@ def days():
         dayPrint = "Thursday, June 1st, 2023"
     elif(day == 49):
         dayPrint = "Monday, June 26th, 2023"
+    if(day >= 50):
+        print("THIS WORKS YEAHHH")
+        return redirect('/endGame')
+    print(day)
     return dayPrint
 if __name__ == '__main__':
+    init()
     app.run(debug=True, host='0.0.0.0')
