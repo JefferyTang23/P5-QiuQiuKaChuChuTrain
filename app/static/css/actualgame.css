@@ -1,3 +1,8 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
+
 #page-container {
     position: relative;
     min-height: 100svh;
@@ -16,19 +21,60 @@
     justify-content: center;
 }
 
+#date {
+    padding: 0; 
+    margin: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+/* grades happiness intel rizz health day */
+
 #sidebar {
+    position: absolute;
+    right: 0.9rem;
+    top: 1rem;
     background-color: aliceblue;
-    height: 7rem;
+    height: 8rem;
     width: 25rem;
     float: right;
     box-shadow: 0px 0px 20px 0px black;
     border-radius: 10px;
 }
 
+.chat {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3.5rem;
+    text-align: center;
+}
+
+.ename {
+    margin: 0;
+    padding: 0;
+    margin-left: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+}
+
+.ebutton {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0.7rem;
+    height: 2rem;
+    width: 6rem;
+}
+
 #chatlog {
     background-color: aqua;
     width: 97.5%;
     flex: 0.95;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #footer {
@@ -42,6 +88,34 @@
 body {
     margin: 0;
     padding: 0;
+}
+
+.stat {
+    padding: 0;
+    margin: 0;
+    margin-top: 0.4rem;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+#grade {
+    padding: 0;
+    margin: 0;
+    margin-top: 0.8rem;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+.stat_id {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
 }
 
 .menu_box {
